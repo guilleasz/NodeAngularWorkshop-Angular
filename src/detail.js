@@ -1,4 +1,6 @@
 $("#home").on("click", ".banda", function(){
+  $("#home").hide()
+  $("#detail").empty()
   $("#detail").append("<div id=bandArtists>")
     $("#detail").append("<div id=bandAlbums>")
     var pi=$(this).attr("id")
@@ -32,7 +34,7 @@ $("#home").on("click", ".banda", function(){
           var top=$(this).offset().top
           var left=$(this).offset().left+60
 
-          var info=$("<div class=info id=info"+id+">").appendTo("#detail")
+          var info=$("<div class=info index="+i+" id=info"+id+">").appendTo("#detail")
 
           info.css({
             top: top,
@@ -43,4 +45,14 @@ $("#home").on("click", ".banda", function(){
           $("#info"+id).remove()
         })
     }
+    $("#detail").on("click", ".album", function(){
+      $("#comments").show()
+      $("#home tbody").empty()
+      var i=$(this).attr("index")
+    for (var key in data[pi][i].tracks) {
+       var track=data[pi][i].tracks[key]
+       var tr= $("<tr id="+track.name+">").appendTo("#home tbody")
+       tr.append("<th>"+track.name+"</th><th>"+Math.floor((Math.round((track.duration_ms)/1000))/60)+":"+(Math.round((track.duration_ms)/1000)%60"</th><th></th>")
+    }
+    })
 })
